@@ -1,5 +1,5 @@
 
-class MyMeta(type):
+class DocMeta(type):
     """Метакласс, проверяющий наличие строк в документации в подконтрольном классе"""
     def __init__(self,clsname,bases,clsdict):
         #к моменту начала работы метода __ini__ метакласса словарь
@@ -28,7 +28,7 @@ class MyMeta(type):
 
 
 
-class Test(metaclass=MyMeta):
+class Test(metaclass=DocMeta):
 
     def teds(self):
         pass

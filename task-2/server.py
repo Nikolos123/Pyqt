@@ -11,11 +11,10 @@ from common.variables import *
 from common.utils import *
 from decos import log
 from descrpts import Port
-from metaclasses import ServerMaker
+from metaclasses import ServerMaker,DocMeta
 
 # Инициализация логирования сервера.
 logger = logging.getLogger('server')
-
 
 # Парсер аргументов коммандной строки.
 @log
@@ -48,6 +47,7 @@ class Server(metaclass=ServerMaker):
         self.names = dict()
 
     def init_socket(self):
+        """Запуск сервера на порту"""
         logger.info(
             f'Запущен сервер, порт для подключений: {self.port} , адрес с которого принимаются подключения: {self.addr}. Если адрес не указан, принимаются соединения с любых адресов.')
         # Готовим сокет
@@ -60,6 +60,7 @@ class Server(metaclass=ServerMaker):
         self.sock.listen(MAX_CONNECTIONS)
 
     def main_loop(self):
+        """Ожидания подключения клиента"""
         self.init_socket()
 
         # Основной цикл программы сервера
@@ -102,9 +103,9 @@ class Server(metaclass=ServerMaker):
                     del self.names[messages[DESTINATION]]
             self.messages.clear()
 
-    # Функция адресной отправки сообщения определённому клиенту. Принимает словарь сообщение, список зарегистрированых
-    # пользователей и слушающие сокеты. Ничего не возвращает.
     def process_message(self, message, listen_socks):
+        """  Функция адресной отправки сообщения определённому клиенту. Принимает словарь сообщение, список зарегистрированых
+             пользователей и слушающие сокеты. Ничего не возвращает."""
         if message[DESTINATION] in self.names and self.names[message[DESTINATION]] in listen_socks:
             send_message(self.names[message[DESTINATION]], message)
             logger.info(f'Отправлено сообщение пользователю {message[DESTINATION]} от пользователя {message[SENDER]}.')
@@ -114,9 +115,9 @@ class Server(metaclass=ServerMaker):
             logger.error(
                 f'Пользователь {message[DESTINATION]} не зарегистрирован на сервере, отправка сообщения невозможна.')
 
-    # Обработчик сообщений от клиентов, принимает словарь - сообщение от клиента, проверяет корректность, отправляет
-    #     словарь-ответ в случае необходимости.
     def process_client_message(self, message, client):
+        """ Обработчик сообщений от клиентов, принимает словарь - сообщение от клиента, проверяет корректность, отправляет
+             словарь-ответ в случае необходимости."""
         logger.debug(f'Разбор сообщения от клиента : {message}')
         # Если это сообщение о присутствии, принимаем и отвечаем
         if ACTION in message and message[ACTION] == PRESENCE and TIME in message and USER in message:
@@ -151,9 +152,8 @@ class Server(metaclass=ServerMaker):
 
 
 def main():
-    # Загрузка параметров командной строки, если нет параметров, то задаём значения по умоланию.
+    """ Загрузка параметров командной строки, если нет параметров, то задаём значения по умоланию. """
     listen_address, listen_port = arg_parser()
-
     # Создание экземпляра класса - сервера.
     server = Server(listen_address, listen_port)
     server.main_loop()

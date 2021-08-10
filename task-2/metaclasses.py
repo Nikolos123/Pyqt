@@ -5,13 +5,30 @@ import dis
 class ServerMaker(type):
 
     def __init__(self, clsname, bases, clsdict):
+        #к моменту начала работы метода __ini__ метакласса словарь
+        #атрибутов контролируемого класса уже сформирован
+
+        for key ,value in clsdict.items():
+            #Пропустим специальные и частные методы
+            if key.startswith("__"):
+                continue
+
+            #Пропустим любые невызываемые объекты
+            if not hasattr(value,"__call__"):
+                continue
+            #Проверить наличие строки документирования
+            if not getattr(value,"__doc__"):
+                raise TypeError(f'Метод {key} должен иметь строку документации из class {clsdict.get("__qualname__")}')
+
+        #type.__init__(self,clsname,bases,clsdict)
+
+
 
         # Список методов,которые используются в функции класс:
         methods = []
         # Атрибуты, используемые в функции классов
         attrs = []
         # перебираем ключи
-
         for func in clsdict:
             try:
                 # Возвращает итератор по инстуркциям в предоставленной функции
@@ -75,4 +92,24 @@ class ClientMaker(type):
             raise TypeError('Отсутствуют вызовы функций, работающих с сокетами.')
         super().__init__(clsname, bases, clsdict)
 
+
+class DocMeta(type):
+    """Метакласс, проверяющий наличие строк в документации в подконтрольном классе"""
+    def __init__(self,clsname,bases,clsdict):
+        #к моменту начала работы метода __ini__ метакласса словарь
+        #атрибутов контролируемого класса уже сформирован
+
+        for key ,value in clsdict.items():
+            #Пропустим специальные и частные методы
+            if key.startswith("__"):
+                continue
+
+            #Пропустим любые невызываемые объекты
+            if not hasattr(value,"__call__"):
+                continue
+            #Проверить наличие строки документирования
+            if not getattr(value,"__doc__"):
+                raise TypeError(f'Метод {key} должен иметь строку документации из class {clsdict.get("__qualname__")}')
+
+        type.__init__(self,clsname,bases,clsdict)
 
