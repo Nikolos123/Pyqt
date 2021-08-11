@@ -20,10 +20,6 @@ class ServerMaker(type):
             if not getattr(value,"__doc__"):
                 raise TypeError(f'Метод {key} должен иметь строку документации из class {clsdict.get("__qualname__")}')
 
-        #type.__init__(self,clsname,bases,clsdict)
-
-
-
         # Список методов,которые используются в функции класс:
         methods = []
         # Атрибуты, используемые в функции классов
