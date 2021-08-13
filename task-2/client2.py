@@ -64,7 +64,6 @@ if __name__ == '__main__':
     database = ClientDatabase(client_name)
 
     # Создаём объект - транспорт и запускаем транспортный поток
-    transport = ''
     try:
         transport = ClientTransport(server_port, server_address, database, client_name)
     except ServerError as error:

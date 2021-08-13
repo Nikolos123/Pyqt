@@ -1,6 +1,3 @@
-import configparser
-import os
-
 from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey, DateTime
 from sqlalchemy.orm import mapper, sessionmaker
 from common.variables import *
@@ -260,26 +257,27 @@ class ServerStorage:
 
 # Отладка
 if __name__ == '__main__':
+    pass
     # Загрузка файла конфигурации сервера
-    config = configparser.ConfigParser()
-
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    config.read(f"{dir_path}/{'server.ini'}")
-
-    test_db = ServerStorage(os.path.join(
-            config['SETTINGS']['Database_path'],
-            config['SETTINGS']['Database_file']))
+    # config = configparser.ConfigParser()
+    #
+    # dir_path = os.path.dirname(os.path.realpath(__file__))
+    # config.read(f"{dir_path}/{'server.ini'}")
+    #
+    # test_db = ServerStorage(os.path.join(
+    #         config['SETTINGS']['Database_path'],
+    #         config['SETTINGS']['Database_file']))
 
     # выполняем 'подключение' пользователя
-    test_db.user_login('client_1', '192.168.1.4', 8888)
-    test_db.user_login('client_2', '192.168.1.5', 7777)
-    # выводим список кортежей - активных пользователей
-    print(test_db.active_users_list())
-    # выполянем 'отключение' пользователя
-    test_db.user_logout('client_1')
-    # выводим список активных пользователей
-    print(test_db.active_users_list())
-    # запрашиваем историю входов по пользователю
-    test_db.login_history('client_1')
-    # выводим список известных пользователей
-    print(test_db.users_list())
+    # test_db.user_login('client_1', '192.168.1.4', 8888)
+    # test_db.user_login('client_2', '192.168.1.5', 7777)
+    # # выводим список кортежей - активных пользователей
+    # print(test_db.active_users_list())
+    # # выполянем 'отключение' пользователя
+    # test_db.user_logout('client_1')
+    # # выводим список активных пользователей
+    # print(test_db.active_users_list())
+    # # запрашиваем историю входов по пользователю
+    # test_db.login_history('client_1')
+    # # выводим список известных пользователей
+    # print(test_db.users_list())

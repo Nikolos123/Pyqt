@@ -1,26 +1,18 @@
 import os
 import socket
-import sys
 import argparse
-import json
-import logging
 import select
-import time
 import threading
 import configparser
-import logs.config_server_log
-from errors import IncorrectDataRecivedError
-from common.variables import *
 from common.utils import *
-from decos import log
-from descrpts import Port, Addr
+from common.decos import log
+from descrpts import Port
 from metaclasses import ServerMaker
 from server_database import ServerStorage
 
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtCore import QTimer
 from server_gui import MainWindow, gui_create_model, HistoryWindow, create_stat_model, ConfigWindow
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 # Инициализация логирования сервера.
 logger = logging.getLogger('server')
@@ -46,7 +38,7 @@ def arg_parser(default_port, default_address):
 
 class Server(threading.Thread, metaclass=ServerMaker):
     port = Port()
-    addr = Addr()
+    # addr = Addr()
 
     def __init__(self, listen_address, listen_port, database):
         # Параментры подключения
@@ -237,18 +229,18 @@ def main():
 
     # Инициализируем параметры в окна
     main_window.statusBar().showMessage('Server Working')
-    main_window.active_client_table.setModel(gui_create_model(database))
-    main_window.active_client_table.resizeColumnsToContents()
-    main_window.active_client_table.resizeRowsToContents()
+    main_window.active_clients_table.setModel(gui_create_model(database))
+    main_window.active_clients_table.resizeColumnsToContents()
+    main_window.active_clients_table.resizeRowsToContents()
 
     # Функция обновляющяя список подключённых, проверяет флаг подключения, и
     # если надо обновляет список
     def list_update():
         global new_connection
         if new_connection:
-            main_window.active_client_table.setModel(gui_create_model(database))
-            main_window.active_client_table.resizeColumnsToContents()
-            main_window.active_client_table.resizeRowsToContents()
+            main_window.active_clients_table.setModel(gui_create_model(database))
+            main_window.active_clients_table.resizeColumnsToContents()
+            main_window.active_clients_table.resizeRowsToContents()
             with conflag_lock:
                 new_connection = False
 

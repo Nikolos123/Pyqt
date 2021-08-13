@@ -92,9 +92,9 @@ class MainWindow(QMainWindow):
         self.label.move(10, 25)
 
         # Окно со списком подключенных клиентов.
-        self.active_client_table = QTableView(self)
-        self.active_client_table.move(10, 45)
-        self.active_client_table.setFixedSize(780, 400)
+        self.active_clients_table = QTableView(self)
+        self.active_clients_table.move(10, 45)
+        self.active_clients_table.setFixedSize(780, 400)
 
         self.show()
 
