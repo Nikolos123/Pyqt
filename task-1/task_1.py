@@ -1,11 +1,11 @@
 from ipaddress import ip_address
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE,call
 
 
 import socket
 
 
-def host_ping(list_ip_adress, timeout=500, request=1):
+def host_ping(list_ip_adress, timeout=10, request=1):
     """
     :param list_ip_adress:
     :param timeout:
@@ -13,15 +13,17 @@ def host_ping(list_ip_adress, timeout=500, request=1):
     :return:
     """
     result = {'Доступные узлы': '', 'Недоступные узлы': ''}
-    for address in list_ip_adress:
+    for addres in list_ip_adress:
         try:
-            address = ip_address(socket.gethostbyname(address))
+            address = ip_address(socket.gethostbyname(addres))
             # address = ip_address(address)
 
         except ValueError:
-            pass
-            # address = socket.gethostbyname(address) #Можено
-        proc = Popen(f'ping {address} -w {timeout} -n {request}', shell=False, stdout=PIPE)
+             # pass
+            address = socket.gethostbyname(addres) #Можено
+        #заменил флаг n  на c (для линукс)
+        args = ["ping", "-c", str(request), "-w", str(timeout), str(address)]
+        proc = Popen(args, shell=False, stdout=PIPE)
         proc.wait()
 
         if proc.returncode == 0:
