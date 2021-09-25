@@ -13,17 +13,16 @@ while True:
 
         clients_count = int(input('Введите количество тестовых клиентов для запуска: '))
         #start server
-        catalog =  os.getcwd()
-        path_server = f'python3 {catalog}/server.py'
-        process.append(subprocess.Popen(['konsole','-e',path_server]))
+        # catalog =  os.getcwd()
+        # path_server = f'python3 {catalog}/server.py'
+        process.append(subprocess.Popen('gnome-terminal -- python3 server.py', shell=True))
 
         # Запускаем сервер!
         # process.append(subprocess.Popen(['python' ,'server.py'],stdout = subprocess.PIPE))
         # Запускаем клиентов:
-        time.sleep(0.1)
+        time.sleep(0.5)
         for i in range(clients_count):
-            path_client = f'python3 "{catalog}/client.py" -m listen -u userL{i}'
-            process.append(subprocess.Popen(['konsole','-e',path_client]))
+            process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test{i}', shell=True))
             time.sleep(0.1)
             # process.append(
             #     subprocess.Popen(['python','client.py',f'-n test{i + 1}'],stdout = subprocess.PIPE))
@@ -31,4 +30,5 @@ while True:
         while process:
             victim = process.pop()
             victim.kill()
+            victim.terminate()
 
