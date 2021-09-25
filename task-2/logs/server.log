@@ -1,0 +1,22 @@
+2021-09-25 14:21:41,550 INFO server.py Установлено соедение с ПК ('127.0.0.1', 54832)
+2021-09-25 14:21:41,550 DEBUG decos.py Была вызвана функция get_message c параметрами (<socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54832)>,) , {}. Вызов из модуля common.utils
+2021-09-25 14:21:41,550 DEBUG server.py Разбор сообщения от клиента : {'action': 'presence', 'time': 1632568901.549919, 'user': {'account_name': 'Test0'}}
+2021-09-25 14:21:41,550 DEBUG decos.py Была вызвана функция send_message c параметрами (<socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54832)>, {'response': 200}) , {}. Вызов из модуля common.utils
+2021-09-25 14:21:41,654 INFO server.py Установлено соедение с ПК ('127.0.0.1', 54834)
+2021-09-25 14:21:41,655 DEBUG decos.py Была вызвана функция get_message c параметрами (<socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54834)>,) , {}. Вызов из модуля common.utils
+2021-09-25 14:21:41,655 DEBUG server.py Разбор сообщения от клиента : {'action': 'presence', 'time': 1632568901.6547425, 'user': {'account_name': 'Test1'}}
+2021-09-25 14:21:41,655 DEBUG decos.py Была вызвана функция send_message c параметрами (<socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54834)>, {'response': 200}) , {}. Вызов из модуля common.utils
+2021-09-25 14:22:04,178 DEBUG decos.py Была вызвана функция get_message c параметрами (<socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54834)>,) , {}. Вызов из модуля common.utils
+2021-09-25 14:22:04,178 DEBUG server.py Разбор сообщения от клиента : {'action': 'message', 'from': 'Test1', 'to': 'Tets2', 'time': 1632568923.7874389, 'mess_text': 'Привет'}
+2021-09-25 14:22:04,178 ERROR server.py Пользователь Tets2 не зарегистрирован на сервере, отправка сообщения невозможна.
+2021-09-25 14:22:32,708 DEBUG decos.py Была вызвана функция get_message c параметрами (<socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54834)>,) , {}. Вызов из модуля common.utils
+2021-09-25 14:22:32,708 DEBUG server.py Разбор сообщения от клиента : {'action': 'message', 'from': 'Test1', 'to': 'Test1', 'time': 1632568952.633208, 'mess_text': 'asd'}
+2021-09-25 14:22:32,708 DEBUG decos.py Была вызвана функция send_message c параметрами (<socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54834)>, {'action': 'message', 'from': 'Test1', 'to': 'Test1', 'time': 1632568952.633208, 'mess_text': 'asd'}) , {}. Вызов из модуля common.utils
+2021-09-25 14:22:32,708 INFO server.py Отправлено сообщение пользователю Test1 от пользователя Test1.
+2021-09-25 14:23:08,247 DEBUG decos.py Была вызвана функция get_message c параметрами (<socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54834)>,) , {}. Вызов из модуля common.utils
+2021-09-25 14:23:08,247 DEBUG server.py Разбор сообщения от клиента : {'action': 'message', 'from': 'Test1', 'to': 'Test2', 'time': 1632568987.8220026, 'mess_text': 'qweqe'}
+2021-09-25 14:23:08,247 ERROR server.py Пользователь Test2 не зарегистрирован на сервере, отправка сообщения невозможна.
+2021-09-25 14:23:18,258 DEBUG decos.py Была вызвана функция get_message c параметрами (<socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54832)>,) , {}. Вызов из модуля common.utils
+2021-09-25 14:23:18,258 DEBUG server.py Разбор сообщения от клиента : {'action': 'message', 'from': 'Test0', 'to': 'Test1', 'time': 1632568998.2269127, 'mess_text': 'qweqwe'}
+2021-09-25 14:23:18,258 DEBUG decos.py Была вызвана функция send_message c параметрами (<socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 54834)>, {'action': 'message', 'from': 'Test0', 'to': 'Test1', 'time': 1632568998.2269127, 'mess_text': 'qweqwe'}) , {}. Вызов из модуля common.utils
+2021-09-25 14:23:18,258 INFO server.py Отправлено сообщение пользователю Test1 от пользователя Test0.
