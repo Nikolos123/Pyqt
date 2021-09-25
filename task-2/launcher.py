@@ -3,8 +3,6 @@ import subprocess
 import time
 
 process = []
-def get_name(i):
-    return  f'{random.getrandbits(128)}/{i}'
 
 while True:
     action = input('Выберите действие: q - выход , s - запустить сервер и клиенты, x - закрыть все окна:')
@@ -20,9 +18,7 @@ while True:
         # Запускаем клиентов:
         time.sleep(0.5)
         for i in range(clients_count):
-            #Добавил так имя так как имена 1-2-3 бывают заняты
-            name = get_name(i)
-            process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test{name}', shell=True))
+            process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test{i}', shell=True))
     elif action == 'x':
         while process:
             victim = process.pop()
