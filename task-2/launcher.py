@@ -1,4 +1,6 @@
+import os
 import subprocess
+import time
 
 process = []
 
@@ -8,13 +10,23 @@ while True:
     if action == 'q':
         break
     elif action == 's':
+
         clients_count = int(input('Введите количество тестовых клиентов для запуска: '))
+        #start server
+        catalog =  os.getcwd()
+        path_server = f'python3 {catalog}/server.py'
+        process.append(subprocess.Popen(['konsole','-e',path_server]))
+
         # Запускаем сервер!
-        process.append(subprocess.Popen('python server.py', creationflags=subprocess.CREATE_NEW_CONSOLE))
+        # process.append(subprocess.Popen(['python' ,'server.py'],stdout = subprocess.PIPE))
         # Запускаем клиентов:
+        time.sleep(0.1)
         for i in range(clients_count):
-            process.append(
-                subprocess.Popen(f'python client.py -n test{i + 1}', creationflags=subprocess.CREATE_NEW_CONSOLE))
+            path_client = f'python3 "{catalog}/client.py" -m listen -u userL{i}'
+            process.append(subprocess.Popen(['konsole','-e',path_client]))
+            time.sleep(0.1)
+            # process.append(
+            #     subprocess.Popen(['python','client.py',f'-n test{i + 1}'],stdout = subprocess.PIPE))
     elif action == 'x':
         while process:
             victim = process.pop()
