@@ -3,6 +3,7 @@ from sqlalchemy.orm import mapper, sessionmaker
 from common.variables import *
 import datetime
 
+logger = logging.getLogger('server')
 
 # Класс - серверная база данных:
 class ServerStorage:
@@ -13,7 +14,7 @@ class ServerStorage:
             self.name = username
             self.last_login = datetime.datetime.now()
             self.id = None
-
+            logger.info(f'Инициализация AllUsers')
     # Класс - отображение таблицы активных пользователей:
     # Экземпляр этого класса = запись в таблице ActiveUsers
     class ActiveUsers:
@@ -23,6 +24,7 @@ class ServerStorage:
             self.port = port
             self.login_time = login_time
             self.id = None
+            logger.info(f'Инициализация ActiveUsers')
 
     # Класс - отображение таблицы истории входов
     # Экземпляр этого класса = запись в таблице LoginHistory
@@ -33,6 +35,7 @@ class ServerStorage:
             self.date_time = date
             self.ip = ip
             self.port = port
+            logger.info(f'Инициализация LoginHistory')
 
     def __init__(self):
         # Создаём движок базы данных
