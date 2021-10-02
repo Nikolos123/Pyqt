@@ -160,7 +160,7 @@ def process_response_ans(message):
 @log
 def arg_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('addr', default=DEFAULT_IP_ADDRESS, nargs='?')
+    parser.add_argument('addr', default='192.168.0.151', nargs='?')
     parser.add_argument('port', default=DEFAULT_PORT, type=int, nargs='?')
     parser.add_argument('-n', '--name', default=None, nargs='?')
     namespace = parser.parse_args(sys.argv[1:])
