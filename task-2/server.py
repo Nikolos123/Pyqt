@@ -110,7 +110,9 @@ class Server(threading.Thread, metaclass=ServerMaker):
             if recv_data_lst:
                 for client_with_message in recv_data_lst:
                     try:
-                        self.process_client_message(get_message(client_with_message), client_with_message)
+                        messages_1 = get_message(client_with_message)
+                        clie = client_with_message
+                        self.process_client_message(messages_1, clie)
                     except:
                         logger.info(f'Клиент {client_with_message.getpeername()} отключился от сервера.')
                         self.clients.remove(client_with_message)
@@ -163,8 +165,7 @@ class Server(threading.Thread, metaclass=ServerMaker):
         elif ACTION in message and message[ACTION] == MESSAGE and DESTINATION in message and TIME in message \
                 and SENDER in message and MESSAGE_TEXT in message and self.names[message[SENDER]] == client:
             self.messages.append(message)
-            self.database.process_message(
-                message[SENDER], message[DESTINATION])
+            # self.process_message(message, client)
             return
         # Если клиент выходит
         elif ACTION in message and message[ACTION] == EXIT and ACCOUNT_NAME in message \

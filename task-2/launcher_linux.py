@@ -4,7 +4,7 @@ import time
 process = []
 
 while True:
-    action = input('Выберите действие: q - выход , s - запустить сервер и клиенты, x - закрыть все окна:')
+    action = input('Выберите действие: q - выход , s - запустить сервер и клиенты, t - запустить только клиентов , x - закрыть все окна:')
 
     if action == 'q':
         break
@@ -18,6 +18,15 @@ while True:
         time.sleep(0.5)
         for i in range(clients_count):
             process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test{i}', shell=True))
+    elif action == 't':
+
+        clients_count = int(input('Введите количество тестовых клиентов для запуска: '))
+
+        # Запускаем клиентов:
+        time.sleep(0.5)
+        for i in range(clients_count):
+            process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test1{i}', shell=True))
+
     elif action == 'x':
         while process:
             victim = process.pop()
