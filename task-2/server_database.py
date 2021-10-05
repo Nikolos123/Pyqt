@@ -52,13 +52,13 @@ class ServerStorage:
             self.sent = 0
             self.accepted = 0
 
-    def __init__(self,path):
+    def __init__(self, path):
         # Создаём движок базы данных
         # SERVER_DATABASE - sqlite:///server_base.db3
         # echo=False - отключаем ведение лога (вывод sql-запросов)
         # pool_recycle - По умолчанию соединение с БД через 8 часов простоя обрывается.
         # Чтобы это не случилось нужно добавить опцию pool_recycle = 7200 (переуст-ка соед-я через 2 часа)
-        self.database_engine = create_engine(f'sqlite:///{path}', echo=False, pool_recycle=7200,connect_args={'check_same_thread': False})
+        self.database_engine = create_engine(f'sqlite:///{path}', echo=False, pool_recycle=7200, connect_args={'check_same_thread': False})
 
         # Создаём объект MetaData
         self.metadata = MetaData()
@@ -257,6 +257,21 @@ class ServerStorage:
         # Возвращаем список кортежей
         return query.all()
 
+    # Функция фиксирует передачу сообщения в делает соответсвующие отметки в БД
+    def process_message(self, sender, recipient):
+        # Получаем ID отправителя и получаетля
+        sender = self.session.query(self.AllUsers).filter_by(name=sender).first().id
+        recipient = self.session.query(self.AllUsers).filter_by(name=recipient).first().id
+        # Запрашиваем строки из истории и увечичиваем счетчики
+        sender_row = self.session.query(self.UsersHistory).filter_by(name=sender).first()
+        sender_row.sent += 1
+        recipient_row = self.session.query(self.UsersHistory).filter_by(name=recipient).first()
+        recipient_row.accepted += 1
+        self.session.commit()
+
+    # #Функция добавляет контакт для пользователя
+    # def add_contact(self,user,contact):
+    #     pass
 
 # Отладка
 if __name__ == '__main__':
@@ -267,8 +282,8 @@ if __name__ == '__main__':
     config.read(f"{dir_path}/{'server.ini'}")
 
     test_db = ServerStorage(os.path.join(
-            config['SETTINGS']['Database_path'],
-            config['SETTINGS']['Database_file']))
+        config['SETTINGS']['Database_path'],
+        config['SETTINGS']['Database_file']))
 
     # выполняем 'подключение' пользователя
     test_db.user_login('client_1', '192.168.1.4', 8888)

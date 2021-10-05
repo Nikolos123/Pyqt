@@ -132,6 +132,7 @@ class Server(threading.Thread, metaclass=ServerMaker):
              пользователей и слушающие сокеты. Ничего не возвращает."""
         if message[DESTINATION] in self.names and self.names[message[DESTINATION]] in listen_socks:
             send_message(self.names[message[DESTINATION]], message)
+            # self.database.process_message(message, listen_socks)
             logger.info(f'Отправлено сообщение пользователю {message[DESTINATION]} от пользователя {message[SENDER]}.')
         elif message[DESTINATION] in self.names and self.names[message[DESTINATION]] not in listen_socks:
             raise ConnectionError
@@ -165,7 +166,7 @@ class Server(threading.Thread, metaclass=ServerMaker):
         elif ACTION in message and message[ACTION] == MESSAGE and DESTINATION in message and TIME in message \
                 and SENDER in message and MESSAGE_TEXT in message and self.names[message[SENDER]] == client:
             self.messages.append(message)
-            # self.process_message(message, client)
+            self.database.process_message(message[SENDER], message[DESTINATION])
             return
         # Если клиент выходит
         elif ACTION in message and message[ACTION] == EXIT and ACCOUNT_NAME in message \
@@ -257,7 +258,7 @@ def main():
     def show_statistics():
         global stat_window
         stat_window = HistoryWindow()
-        stat_window.history_table.setModel(create_stat_model(database))
+        stat_window.history_table.setModel(gui_create_model(database))
         stat_window.history_table.resizeColumnsToContents()
         stat_window.history_table.resizeRowsToContents()
         stat_window.show()

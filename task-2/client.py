@@ -10,7 +10,7 @@ from common.variables import *
 from common.utils import *
 from errors import IncorrectDataRecivedError, ReqFieldMissingError, ServerError
 from decos import log
-
+from client_database import ClientDatabase
 from metaclasses import ClientMaker
 
 # Инициализация клиентского логера
@@ -78,6 +78,7 @@ class ClientSender(threading.Thread,metaclass=ClientMaker):
     def print_help(self):
         print('Поддерживаемые команды:')
         print('message - отправить сообщение. Кому и текст будет запрошены отдельно.')
+        print('list - список контактов.')
         print('help - вывести подсказки по командам')
         print('exit - выход из программы')
 
