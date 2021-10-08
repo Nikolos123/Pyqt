@@ -1,26 +1,18 @@
 import os
 import socket
-import sys
 import argparse
-import json
-import logging
 import select
-import time
 import threading
 import configparser
-import logs.config_server_log
-from errors import IncorrectDataRecivedError
-from common.variables import *
 from common.utils import *
-from decos import log
+from common.decos import log
 from descrpts import Port, Addr
 from metaclasses import ServerMaker
 from server_database import ServerStorage
 
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtCore import QTimer
-from server_gui import MainWindow, gui_create_model, HistoryWindow, create_stat_model, ConfigWindow
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from server_gui import MainWindow, gui_create_model, HistoryWindow, ConfigWindow
 
 # Инициализация логирования сервера.
 logger = logging.getLogger('server')
@@ -110,9 +102,7 @@ class Server(threading.Thread, metaclass=ServerMaker):
             if recv_data_lst:
                 for client_with_message in recv_data_lst:
                     try:
-                        messages_1 = get_message(client_with_message)
-                        clie = client_with_message
-                        self.process_client_message(messages_1, clie)
+                        self.process_client_message(get_message(client_with_message), client_with_message)
                     except:
                         logger.info(f'Клиент {client_with_message.getpeername()} отключился от сервера.')
                         self.clients.remove(client_with_message)

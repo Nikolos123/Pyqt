@@ -17,7 +17,7 @@ while True:
         # Запускаем клиентов:
         time.sleep(0.5)
         for i in range(clients_count):
-            process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test{i}', shell=True))
+            process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test4{i}', shell=True))
     elif action == 't':
 
         clients_count = int(input('Введите количество тестовых клиентов для запуска: '))
@@ -25,7 +25,7 @@ while True:
         # Запускаем клиентов:
         time.sleep(0.5)
         for i in range(clients_count):
-            process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test1{i}', shell=True))
+            process.append(subprocess.Popen(f'gnome-terminal -- python3 client.py -n Test4{i}', shell=True))
 
     elif action == 'x':
         while process:
