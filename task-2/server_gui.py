@@ -35,27 +35,27 @@ def get_screen(self):
              'y':y
     }
 
-# GUI - Функция реализующая заполнение таблицы историей сообщений.
-def create_stat_model(database):
-    # Список записей из базы
-    hist_list = database.message_history()
-
-    # Объект модели данных:
-    list = QStandardItemModel()
-    list.setHorizontalHeaderLabels(
-        ['Имя Клиента', 'Последний раз входил', 'Сообщений отправлено', 'Сообщений получено'])
-    for row in hist_list:
-        user, last_seen, sent, recvd = row
-        user = QStandardItem(user)
-        user.setEditable(False)
-        last_seen = QStandardItem(str(last_seen.replace(microsecond=0)))
-        last_seen.setEditable(False)
-        sent = QStandardItem(str(sent))
-        sent.setEditable(False)
-        recvd = QStandardItem(str(recvd))
-        recvd.setEditable(False)
-        list.appendRow([user, last_seen, sent, recvd])
-    return list
+# # GUI - Функция реализующая заполнение таблицы историей сообщений.
+# def create_stat_model(database):
+#     # Список записей из базы
+#     hist_list = database.message_history()
+#
+#     # Объект модели данных:
+#     list = QStandardItemModel()
+#     list.setHorizontalHeaderLabels(
+#         ['Имя Клиента', 'Последний раз входил', 'Сообщений отправлено', 'Сообщений получено'])
+#     for row in hist_list:
+#         user, last_seen, sent, recvd = row
+#         user = QStandardItem(user)
+#         user.setEditable(False)
+#         last_seen = QStandardItem(str(last_seen.replace(microsecond=0)))
+#         last_seen.setEditable(False)
+#         sent = QStandardItem(str(sent))
+#         sent.setEditable(False)
+#         recvd = QStandardItem(str(recvd))
+#         recvd.setEditable(False)
+#         list.appendRow([user, last_seen, sent, recvd])
+#     return list
 
 
 # Класс основного окна

@@ -706,3 +706,6 @@
 2021-10-11 11:50:56,896 DEBUG decos.py Была вызвана функция get_message c параметрами (<socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 48582)>,) , {}. Вызов из модуля common.utils
 2021-10-11 11:50:56,897 DEBUG server.py Разбор сообщения от клиента : {'action': 'exit', 'time': 1633942256.6739614, 'account_name': 'Test521'}
 2021-10-11 11:50:56,988 INFO server.py Клиент ('127.0.0.1', 48582) отключился от сервера.
+2021-10-11 14:24:46,704 DEBUG decos.py Была вызвана функция get_message c параметрами (<socket.socket fd=24, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 48584)>,) , {}. Вызов из модуля common.utils
+2021-10-11 14:24:46,705 DEBUG server.py Разбор сообщения от клиента : {'action': 'exit', 'time': 1633951486.0217252, 'account_name': 'Test520'}
+2021-10-11 14:24:46,806 INFO server.py Клиент ('127.0.0.1', 48584) отключился от сервера.
